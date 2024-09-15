@@ -11,9 +11,9 @@ use anchor_client::{
 use anyhow::*;
 use clap::*;
 
-mod args;
-mod instructions;
-mod math;
+pub mod args;
+pub mod instructions;
+pub mod math;
 
 use args::*;
 use instructions::initialize_lb_pair::*;
