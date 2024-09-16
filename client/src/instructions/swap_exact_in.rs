@@ -99,7 +99,7 @@ pub async fn swap<C: Deref<Target = impl Signer> + Clone>(
         &lb_pair_state,
         amount_in,
         swap_for_y,
-        bin_arrays,
+        &bin_arrays,
         bitmap_extension.as_ref(),
         clock.unix_timestamp as u64,
         clock.slot,
