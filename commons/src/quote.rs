@@ -59,6 +59,7 @@ pub fn quote_exact_out(
     bitmap_extension: Option<&BinArrayBitmapExtension>,
     current_timestamp: u64,
     current_slot: u64,
+    timeout: std::time::Duration,
 ) -> Result<SwapExactOutQuote> {
     validate_swap_activation(lb_pair, current_timestamp, current_slot)?;
 
@@ -67,8 +68,11 @@ pub fn quote_exact_out(
 
     let mut total_amount_in: u64 = 0;
     let mut total_fee: u64 = 0;
-
+    let start = std::time::Instant::now();
     while amount_out > 0 {
+        if start.elapsed() >= timeout {
+            return Err(anyhow::anyhow!("Timeout reached"))
+        }
         let active_bin_array_pubkey = get_bin_array_pubkeys_for_swap(
             lb_pair_pubkey,
             &lb_pair,
@@ -148,6 +152,7 @@ pub fn quote_exact_in(
     bitmap_extension: Option<&BinArrayBitmapExtension>,
     current_timestamp: u64,
     current_slot: u64,
+    timeout: std::time::Duration,
 ) -> Result<SwapExactInQuote> {
     validate_swap_activation(lb_pair, current_timestamp, current_slot)?;
 
@@ -156,8 +161,11 @@ pub fn quote_exact_in(
 
     let mut total_amount_out: u64 = 0;
     let mut total_fee: u64 = 0;
-
+    let start = std::time::Instant::now();
     while amount_in > 0 {
+        if start.elapsed() >= timeout {
+            return Err(anyhow::anyhow!("Timeout reached"))
+        }
         let active_bin_array_pubkey = get_bin_array_pubkeys_for_swap(
             lb_pair_pubkey,
             &lb_pair,
