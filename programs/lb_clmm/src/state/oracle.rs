@@ -24,6 +24,7 @@ pub trait OracleContentLoader<'info> {
 
 #[zero_copy]
 #[derive(Default, Debug, PartialEq, Eq)]
+#[repr(C, packed)]
 pub struct Observation {
     /// Cumulative active bin ID
     pub cumulative_active_bin_id: i128,
@@ -80,6 +81,7 @@ impl Observation {
 
 #[account(zero_copy)]
 #[derive(Default, Debug)]
+#[repr(C, packed)]
 pub struct Oracle {
     /// Index of latest observation
     pub idx: u64,

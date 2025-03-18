@@ -8,6 +8,7 @@ use std::ops::BitXor;
 
 #[account(zero_copy)]
 #[derive(Debug, InitSpace)]
+#[repr(C, packed)]
 pub struct BinArrayBitmapExtension {
     pub lb_pair: Pubkey,
     /// Packed initialized bin array state for start_bin_index is positive
